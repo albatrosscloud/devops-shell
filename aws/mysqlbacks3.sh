@@ -28,7 +28,8 @@ done
 
 
 echo "Starting backup..."
-${MYSQLDUMP_PATH}mysqldump --user=${MYSQL_USER} --password=${MYSQL_PASS} --host=${MYSQL_HOST} ${IGNORED_TABLES} ${DATABASE} > ${TMP_PATH}${FILENAME}.sql
+${MYSQLDUMP_PATH}mysqldump --user=${MYSQL_USER} --password=${MYSQL_PASS} --host=${MYSQL_HOST} --no-data ${DATABASE} > ${TMP_PATH}${FILENAME}.sql
+${MYSQLDUMP_PATH}mysqldump --user=${MYSQL_USER} --password=${MYSQL_PASS} --host=${MYSQL_HOST} --no-create-info ${IGNORED_TABLES} ${DATABASE} >> ${TMP_PATH}${FILENAME}.sql
 echo "...done."
 
 echo "Starting compression..."
