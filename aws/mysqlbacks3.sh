@@ -18,7 +18,7 @@ S3_PATH=mysql_backup/
 MYSQLDUMP_PATH=/usr/bin/
 TMP_PATH=/tmp/
 
-DATE_STAMP=$(date +"-%d-%m-%Y-%H-%M")
+DATE_STAMP=$(date +"-%Y-%m-%d-%H-%M")
 
 IGNORED_TABLES=''
 for TABLE in "${EXCLUDED_TABLES[@]}"
