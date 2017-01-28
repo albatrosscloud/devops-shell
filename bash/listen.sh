@@ -1,0 +1,1 @@
+netstat -platanal | grep LISTEN
