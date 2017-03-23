@@ -36,7 +36,7 @@ tar czf ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz ${TMP_PATH}${FILENAME}.sql
 echo "...done."
 
 echo "Uploading new backup to Dropbox... "
-dropbox_uploader upload ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz ${DBOX_PATH}
+dropbox-uploader upload ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz ${DBOX_PATH}
 echo "...uploaded."
 
 echo "Removing temporal files..."
