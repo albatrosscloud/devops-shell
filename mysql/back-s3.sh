@@ -18,7 +18,7 @@ S3_PATH=mysql_backup/
 MYSQLDUMP_PATH=/usr/bin/
 TMP_PATH=/tmp/
 
-DATE_STAMP=$(date +"-%Y-%m-%d-%H-%M")
+DATE_STAMP=$(date +"-%Y-%m%d-%H%M")
 
 IGNORED_TABLES=''
 for TABLE in "${EXCLUDED_TABLES[@]}"
@@ -36,11 +36,11 @@ echo "Starting compression..."
 tar czf ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz ${TMP_PATH}${FILENAME}.sql
 echo "...done."
 
-echo "Uploading to S3 the new backup..."
+echo "Uploading new backup to S3..."
 s3cmd put -f ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz s3://${S3_BUCKET}/${S3_PATH}
 echo "...uploaded."
 
-echo "Removing the temporal files..."
+echo "Removing temporal files..."
 rm ${TMP_PATH}${FILENAME}.sql
 rm ${TMP_PATH}${FILENAME}${DATE_STAMP}.tar.gz
 echo "..."
