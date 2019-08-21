@@ -3,8 +3,8 @@
 # Restore MySQL Database from DROPBOX
 # Desarrollado por Albatross - www.albatross.pe
 
-S3_BUCKET=bucketname
-S3_PATH=/dir/on/s3
+S3_BUCKET=bucket
+S3_PATH=client/database/
 
 BACKUP_DIR=tmp/
 BACKUP_NAME=backup.sql
@@ -22,14 +22,16 @@ MYSQL_PATH=/usr/bin/
 
 
 echo "Downloading last backup..."
-BACKUP_COMPRESS="$(s3cmd ls s3://${S3_BUCKET}/${S3_PATH} | tail -1 | awk '{print $3}')"
+BACKUP_COMPRESS="$(s3cmd ls s3://${S3_BUCKET}/${S3_PATH} | tail -1 | awk '{print $4}')"
 BACKUP_FILENAME='backup.tar.gz'
-s3 get s3://${BACKUP_COMPRESS} ${TMP_PATH}${BACKUP_FILENAME}
+
+echo $BACKUP_COMPRESS
+s3cmd get ${BACKUP_COMPRESS} ${TMP_PATH}${BACKUP_FILENAME}
 echo "...done."
 
 
 echo "Starting decompressing..."
-tar xfz ${TMP_PATH}${BACKUP_COMPRESS} -C ${TMP_PATH}
+tar xfz ${TMP_PATH}${BACKUP_FILENAME} -C ${TMP_PATH}
 echo "...done."
 
 
@@ -42,10 +44,9 @@ echo "...done"
 
 
 echo "Removing temporal files..."
-rm -rf ${TMP_PATH}${BACKUP_COMPRESS}
+rm -rf ${TMP_PATH}${BACKUP_FILENAME}
 rm -rf ${TMP_PATH}${BACKUP_DIR}
 echo "..."
 
 
 echo "it's DONE!"
-
